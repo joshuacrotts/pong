@@ -18,4 +18,8 @@
 
 #define BALL_SPEED 10
 
+enum SOUND_FX {
+  SND_P1_HIT, SND_P2_HIT, SND_SCORE
+};
+
 #endif // GAME_DEFS_H

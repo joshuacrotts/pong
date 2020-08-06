@@ -47,19 +47,19 @@ init_level( void ) {
 void
 update_level( void ) {
   handle_collisions();
+  update_ball( level->ball );
 
   if ( level->player_one->id_flags & PLAYER_ONE_MASK ) {
     update_paddle( level->player_one );
-  } else {
+  } else if ( level->player_one->id_flags & P1_AI_MASK ) {
     update_ai_paddle( level->player_one );
   }
 
   if ( level->player_two->id_flags & PLAYER_TWO_MASK ) {
     update_paddle( level->player_two );
-  } else {
+  } else if ( level->player_two->id_flags & P2_AI_MASK ) {
     update_ai_paddle( level->player_two );
   }
-  update_ball( level->ball );
 }
 
 /**
@@ -73,13 +73,13 @@ draw_level( void ) {
 
   if ( level->player_one->id_flags & PLAYER_ONE_MASK ) {
     draw_paddle( level->player_one );
-  } else {
+  } else if ( level->player_one->id_flags & P1_AI_MASK ) {
     draw_ai_paddle( level->player_one );
   }
 
   if ( level->player_two->id_flags & PLAYER_TWO_MASK ) {
     draw_paddle( level->player_two );
-  } else {
+  } else if ( level->player_two->id_flags & P2_AI_MASK ) {
     draw_ai_paddle( level->player_two );
   }
 }
@@ -89,7 +89,7 @@ draw_level( void ) {
  */
 static void
 draw_score( void ) {
-  SDL_Color c = { 0xff, 0xff, 0xff, 0xff };
+  SDL_Color c = {0xff, 0xff, 0xff, 0xff};
   Stds_DrawText( g_app.SCREEN_WIDTH / 2 - SCORE_P1_X_OFFSET, SCORE_Y_OFFSET, "res/font/bit5x3.ttf",
                  FONT_SIZE, &c, "%d", level->score_p1 );
   Stds_DrawText( g_app.SCREEN_WIDTH / 2 + SCORE_P2_X_OFFSET, SCORE_Y_OFFSET, "res/font/bit5x3.ttf",
@@ -101,8 +101,8 @@ draw_score( void ) {
  */
 static void
 draw_background( void ) {
-  SDL_Rect  r = { 0, 0, g_app.SCREEN_WIDTH, g_app.SCREEN_HEIGHT };
-  SDL_Color c = { 0xff, 0x55, 0, 0xff };
+  SDL_Rect  r = {0, 0, g_app.SCREEN_WIDTH, g_app.SCREEN_HEIGHT};
+  SDL_Color c = {0xff, 0x55, 0, 0xff};
   Stds_DrawRect( &r, &c, true, false );
 
   draw_vlines();
@@ -125,10 +125,10 @@ handle_collisions( void ) {
     /* If they collided with p1, it's on the right side, otherwise
        it's the left. */
     if ( p1_collide ) {
-      Stds_PlaySounds( SND_P1_HIT, CH_ANY );
+      Stds_PlaySFX( SND_P1_HIT, CH_ANY );
       b->pos.x = p1->pos.x + p1->w;
     } else {
-      Stds_PlaySounds( SND_P2_HIT, CH_ANY );
+      Stds_PlaySFX( SND_P2_HIT, CH_ANY );
       b->pos.x = p2->pos.x;
       p2->flags &= 0;
     }
@@ -150,7 +150,7 @@ handle_collisions( void ) {
 
   if ( is_restart ) {
     respawn_ball( b );
-    Stds_PlaySounds( SND_SCORE, CH_ANY );
+    Stds_PlaySFX( SND_SCORE, CH_ANY );
     p2->flags &= 0;
   }
 }
@@ -169,8 +169,8 @@ check_paddle_ball_collision( struct entity_t *p, struct entity_t *b ) {
 static void
 draw_vlines( void ) {
   for ( int i = 0, x = 0; i < MAX_VLINES; i++, x += VLINE_SPACE ) {
-    SDL_Rect  r = { g_app.SCREEN_WIDTH / 2 - VLINE_WIDTH, x, VLINE_WIDTH, VLINE_HEIGHT };
-    SDL_Color c = { 0xff, 0xff, 0xff, 0xff };
+    SDL_Rect  r = {g_app.SCREEN_WIDTH / 2 - VLINE_WIDTH, x, VLINE_WIDTH, VLINE_HEIGHT};
+    SDL_Color c = {0xff, 0xff, 0xff, 0xff};
     Stds_DrawRect( &r, &c, true, false );
   }
 }

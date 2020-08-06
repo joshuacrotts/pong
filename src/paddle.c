@@ -19,24 +19,20 @@ init_paddle( int ID_MASK ) {
     exit( EXIT_FAILURE );
   }
 
-  paddle->w = PADDLE_WIDTH;
-  paddle->h = PADDLE_HEIGHT;
-  paddle->id_flags |= ID_MASK;
-
+  paddle->w        = PADDLE_WIDTH;
+  paddle->h        = PADDLE_HEIGHT;
+  paddle->id_flags = ID_MASK;
+  
   /* We can use two AI masks to simulate AI vs AI... >:} */
-  switch ( ID_MASK ) {
-  case PLAYER_ONE_MASK:
-  case P1_AI_MASK:
+  if ( paddle->id_flags == PLAYER_ONE_MASK || paddle->id_flags == P1_AI_MASK ) {
     paddle->pos = Stds_CreateVec2( PADDLE_WIDTH, g_app.SCREEN_HEIGHT / 2 - paddle->h );
-    break;
-  case PLAYER_TWO_MASK:
-  case P2_AI_MASK:
+  } else {
     paddle->pos = Stds_CreateVec2( g_app.SCREEN_WIDTH - PADDLE_WIDTH * 2,
                                    g_app.SCREEN_HEIGHT / 2 - paddle->h );
-    break;
   }
+  paddle->velocity = Stds_CreateVec2( 0.f, 0.f );
 
-  SDL_Color c   = { 0xff, 0xff, 0xff, 0xff };
+  SDL_Color c   = {0xff, 0xff, 0xff, 0xff};
   paddle->color = c;
 
   return paddle;
@@ -59,7 +55,7 @@ update_paddle( struct entity_t *p ) {
  */
 void
 draw_paddle( struct entity_t *p ) {
-  SDL_FRect fr = { p->pos.x, p->pos.y, p->w, p->h };
+  SDL_FRect fr = {p->pos.x, p->pos.y, p->w, p->h};
   Stds_DrawRectF( &fr, &p->color, true, false );
 }
 

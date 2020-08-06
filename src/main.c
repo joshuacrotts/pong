@@ -1,9 +1,9 @@
 #include "../include/main.h"
 
-
 static void init_scene( void );
 static void cleanup_stage( void );
 static void load_fonts( void );
+static void load_sounds( void );
 
 static void update( void );
 static void draw( void );
@@ -29,6 +29,7 @@ init_scene( void ) {
 
   init_level();
   load_fonts();
+  load_sounds();
 }
 
 /**
@@ -53,6 +54,13 @@ draw( void ) {
 static void
 load_fonts( void ) {
   Stds_AddFont( "res/font/bit5x3.ttf", FONT_SIZE );
+}
+
+static void
+load_sounds( void ) {
+  Stds_LoadSFX( "res/sfx/p1_hit.ogg", SND_P1_HIT );
+  Stds_LoadSFX( "res/sfx/p2_hit.ogg", SND_P2_HIT );
+  Stds_LoadSFX( "res/sfx/score.ogg", SND_SCORE );
 }
 
 /**

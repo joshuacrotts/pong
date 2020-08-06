@@ -57,7 +57,7 @@ Stds_InitGame( const char *window_name, const uint32_t window_width, const uint3
   g_app = Stds_CreateApp();
 
   Stds_InitSDL( window_name, window_width, window_height, level_width, level_height );
-  Stds_InitSounds();
+  Stds_InitAudio();
   Stds_InitFonts();
 
   g_app.original_title = window_name;
@@ -179,8 +179,6 @@ Stds_Quit( void ) {
 static struct app_t
 Stds_CreateApp( void ) {
   struct app_t app;
-  g_app.Stds_LoadFonts  = NULL;
-  g_app.Stds_LoadSounds = NULL;
   g_app.texture_tail    = NULL;
   g_app.trail_tail      = NULL;
   g_app.button_tail     = NULL;

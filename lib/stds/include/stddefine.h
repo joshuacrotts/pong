@@ -29,8 +29,8 @@ enum GameState { RUNNING, PREGAME, INIT, TRANSITION, PAUSED };
 
 enum CollisionSide { SIDE_TOP, SIDE_LEFT, SIDE_RIGHT, SIDE_BOTTOM, SIDE_NONE = -1 };
 
-enum SoundChannel { CH_ANY = -1, CH_PADDLE };
+enum SoundChannel { CH_ANY = -1, CH_BRICK };
 
-enum SFX { SND_P1_HIT, SND_P2_HIT, SND_SCORE, SND_MAX };
+enum SFX { SND_COIN, SND_EXTRA_LIFE, SND_PAUSE, SND_BRICK_BREAK, SND_BRICK_SHATTER, SND_MAX };
 
 #endif // DEFS_H
