@@ -1,18 +1,22 @@
 #include "../include/level.h"
 
-#define SIGNUM( x ) ( ( x > 0 ) ? 1 : ( ( x < 0 ) ? -1 : 0 ) )
-
-#define MIN_X_VELOCITY 5.f
-#define MAX_X_VELOCITY 15.f
-#define MIN_Y_VELOCITY 5.f
-#define MAX_Y_VELOCITY 10.f
-#define SCORE_X_OFFSET 100
-#define SCORE_Y_OFFSET 20
+#define MIN_X_VELOCITY    5.f
+#define MAX_X_VELOCITY    15.f
+#define MIN_Y_VELOCITY    5.f
+#define MAX_Y_VELOCITY    10.f
+#define SCORE_P1_X_OFFSET 264
+#define SCORE_P2_X_OFFSET 200
+#define SCORE_Y_OFFSET    20
+#define MAX_VLINES        15
+#define VLINE_WIDTH       5
+#define VLINE_HEIGHT      25
+#define VLINE_SPACE       g_app.SCREEN_HEIGHT / MAX_VLINES
 
 struct level_t *level;
 
 static void draw_score( void );
 static void draw_background( void );
+static void draw_vlines( void );
 
 static void handle_collisions( void );
 static bool check_paddle_ball_collision( struct entity_t *p, struct entity_t *b );
@@ -87,9 +91,9 @@ draw_level( void ) {
 static void
 draw_score( void ) {
   SDL_Color c = { 0xff, 0xff, 0xff, 0xff };
-  Stds_DrawText( g_app.SCREEN_WIDTH / 2 - SCORE_X_OFFSET, SCORE_Y_OFFSET, "res/font/bit5x3.ttf",
+  Stds_DrawText( g_app.SCREEN_WIDTH / 2 - SCORE_P1_X_OFFSET, SCORE_Y_OFFSET, "res/font/bit5x3.ttf",
                  FONT_SIZE, &c, "%d", level->score_p1 );
-  Stds_DrawText( g_app.SCREEN_WIDTH / 2 + SCORE_X_OFFSET, SCORE_Y_OFFSET, "res/font/bit5x3.ttf",
+  Stds_DrawText( g_app.SCREEN_WIDTH / 2 + SCORE_P2_X_OFFSET, SCORE_Y_OFFSET, "res/font/bit5x3.ttf",
                  FONT_SIZE, &c, "%d", level->score_p2 );
 }
 
@@ -101,6 +105,8 @@ draw_background( void ) {
   SDL_Rect  r = { 0, 0, g_app.SCREEN_WIDTH, g_app.SCREEN_HEIGHT };
   SDL_Color c = { 0xff, 0x55, 0, 0xff };
   Stds_DrawRect( &r, &c, true, false );
+
+  draw_vlines();
 }
 
 /**
@@ -125,6 +131,7 @@ handle_collisions( void ) {
     } else {
       Stds_PlaySounds( SND_P2_HIT, CH_ANY );
       b->pos.x = p2->pos.x;
+      p2->flags &= 0;
     }
 
     b->velocity.x =
@@ -133,16 +140,18 @@ handle_collisions( void ) {
         Stds_RandomFloatBounded( -MAX_Y_VELOCITY, -MIN_Y_VELOCITY, MIN_Y_VELOCITY, MAX_Y_VELOCITY );
   }
 
-  /* If the ball goes off the screen on either side, increment the player score.
-     Yes, I know the code is redundant. Bite me. */
+  /* If the ball goes off the screen on either side, increment the player score. */
+  bool is_restart = b->pos.x >= g_app.SCREEN_WIDTH || b->pos.x <= 0;
   if ( b->pos.x >= g_app.SCREEN_WIDTH ) {
     level->score_p1++;
-    respawn_ball( b );
-    Stds_PlaySounds( SND_SCORE, CH_ANY );
   } else if ( b->pos.x <= 0 ) {
     level->score_p2++;
+  }
+
+  if ( is_restart ) {
     respawn_ball( b );
     Stds_PlaySounds( SND_SCORE, CH_ANY );
+    p2->flags &= 0;
   }
 }
 
@@ -152,4 +161,16 @@ handle_collisions( void ) {
 static bool
 check_paddle_ball_collision( struct entity_t *p, struct entity_t *b ) {
   return Stds_CheckIntersection( p->pos.x, p->pos.y, p->w, p->h, b->pos.x, b->pos.y, b->w, b->h );
+}
+
+/**
+ *
+ */
+static void
+draw_vlines( void ) {
+  for ( int i = 0, x = 0; i < MAX_VLINES; i++, x += VLINE_SPACE ) {
+    SDL_Rect  r = { g_app.SCREEN_WIDTH / 2 - VLINE_WIDTH, x, VLINE_WIDTH, VLINE_HEIGHT };
+    SDL_Color c = { 0xff, 0xff, 0xff, 0xff };
+    Stds_DrawRect( &r, &c, true, false );
+  }
 }

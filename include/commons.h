@@ -1,6 +1,8 @@
 #ifndef COMMONS_H
 #define COMMONS_H
 
+#define SIGNUM( x ) ( ( x > 0 ) ? 1 : ( ( x < 0 ) ? -1 : 0 ) )
+
 #include "game_defs.h"
 #include "game_structs.h"
 

@@ -1,6 +1,6 @@
 #include "../include/paddle.h"
 
-#define PADDLE_WIDTH  15
+#define PADDLE_WIDTH  20
 #define PADDLE_HEIGHT 80
 #define DAMP_VELOCITY 0.95f
 
@@ -70,15 +70,15 @@ static void
 key_input_listener( struct entity_t *p ) {
   if ( p->id_flags & PLAYER_ONE_MASK ) {
     if ( g_app.keyboard[SDL_SCANCODE_W] ) {
-      p->velocity = Stds_CreateVec2( 0, -PADDLE_VELOCITY );
+      p->velocity = Stds_CreateVec2( 0, -DEFAULT_PADDLE_VELOCITY );
     } else if ( g_app.keyboard[SDL_SCANCODE_S] ) {
-      p->velocity = Stds_CreateVec2( 0, PADDLE_VELOCITY );
+      p->velocity = Stds_CreateVec2( 0, DEFAULT_PADDLE_VELOCITY );
     }
   } else if ( p->id_flags & PLAYER_TWO_MASK ) {
     if ( g_app.keyboard[SDL_SCANCODE_UP] ) {
-      p->velocity = Stds_CreateVec2( 0, -PADDLE_VELOCITY );
+      p->velocity = Stds_CreateVec2( 0, -DEFAULT_PADDLE_VELOCITY );
     } else if ( g_app.keyboard[SDL_SCANCODE_DOWN] ) {
-      p->velocity = Stds_CreateVec2( 0, PADDLE_VELOCITY );
+      p->velocity = Stds_CreateVec2( 0, DEFAULT_PADDLE_VELOCITY );
     }
   }
 }
