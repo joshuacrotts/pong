@@ -48,16 +48,16 @@ void
 update_level( void ) {
   handle_collisions();
 
-  if ( level->player_one->id_flags & P1_AI_MASK ) {
-    update_ai_paddle( level->player_one );
-  } else {
+  if ( level->player_one->id_flags & PLAYER_ONE_MASK ) {
     update_paddle( level->player_one );
+  } else {
+    update_ai_paddle( level->player_one );
   }
 
-  if ( level->player_two->id_flags & P2_AI_MASK ) {
-    update_ai_paddle( level->player_two );
-  } else {
+  if ( level->player_two->id_flags & PLAYER_TWO_MASK ) {
     update_paddle( level->player_two );
+  } else {
+    update_ai_paddle( level->player_two );
   }
   update_ball( level->ball );
 }
@@ -69,20 +69,19 @@ void
 draw_level( void ) {
   draw_background();
   draw_score();
-
-  if ( level->player_one->id_flags & P1_AI_MASK ) {
-    draw_ai_paddle( level->player_one );
-  } else {
-    draw_paddle( level->player_one );
-  }
-
-  if ( level->player_two->id_flags & P2_AI_MASK ) {
-    draw_ai_paddle( level->player_two );
-  } else {
-    draw_paddle( level->player_two );
-  }
-
   draw_ball( level->ball );
+
+  if ( level->player_one->id_flags & PLAYER_ONE_MASK ) {
+    draw_paddle( level->player_one );
+  } else {
+    draw_ai_paddle( level->player_one );
+  }
+
+  if ( level->player_two->id_flags & PLAYER_TWO_MASK ) {
+    draw_paddle( level->player_two );
+  } else {
+    draw_ai_paddle( level->player_two );
+  }
 }
 
 /**
@@ -134,6 +133,7 @@ handle_collisions( void ) {
       p2->flags &= 0;
     }
 
+    /* The velocity is randomized every time the ball hits the paddle. */
     b->velocity.x =
         Stds_RandomFloat( MIN_X_VELOCITY, MAX_X_VELOCITY ) * -( SIGNUM( b->velocity.x ) );
     b->velocity.y =
