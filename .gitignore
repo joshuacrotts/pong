@@ -1,0 +1,6 @@
+.vscode/*
+Game
+Game.exe
+bin/*
+obj/*
+Game.dSYM
