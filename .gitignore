@@ -4,3 +4,4 @@ Game.exe
 bin/*
 obj/*
 Game.dSYM
+lib/*
