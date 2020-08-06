@@ -11,12 +11,13 @@ Yep, this is yet another Pong game. The only difference with this clone is that 
 
 ## Dependencies
 
-The only dependencies for this library are SDL components.
+The only dependencies for this library are SDL components, and the C-Standards library.
 
 1. [SDL_2.0.12](https://www.libsdl.org/download-2.0.php)
 2. [SDL_ttf 2.0.15 (Fonts)](https://www.libsdl.org/projects/SDL_ttf/)
 3. [SDL_mixer 2.0.4 (Audio)](https://www.libsdl.org/projects/SDL_mixer/)
 4. [SDL_image 2.0.5 (PNG/JPG Wrapper)](https://www.libsdl.org/projects/SDL_image/)
+5. [C-Standards](https://github.com/JoshuaCrotts/C-Standards.git)
 
 ## Rebuilding Pong
 
@@ -54,6 +55,8 @@ Then, compile via <code>make</code>.
 4. <code>sudo pacman -S sdl2_mixer</code>
 
 Then, compile via <code>make</code>.
+
+**In all cases**, make sure you download the C-Standards library from the link above. Only the src, include, and lib folders are necessary. Place them into a directory in the root of the project called "/lib/stds/".
 
 ## Reporting Bugs
 
