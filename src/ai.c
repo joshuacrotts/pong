@@ -36,7 +36,7 @@ draw_ai_paddle( struct entity_t *ai_paddle ) {
  */
 static void
 update_ai_velocities( struct entity_t *ai_paddle ) {
-  bool is_receding_ball = SIGNUM( level->ball->velocity.x ) == -1;
+  bool is_receding_ball = Stds_Signum( level->ball->velocity.x ) == -1;
 
   /* If the ball is going away from the ai_paddle, we can move twice as slow. */
   if ( is_receding_ball && ( ( ai_paddle->flags & AI_VELOCITY_RECEDE_MASK ) == 0 ) ) {
@@ -69,9 +69,9 @@ compute_threshold( struct entity_t *ai_paddle ) {
   /* This threshold calculates the point that the AI
      travels to, to find the optimal spot to hit the ball. */
   float threshold = level->ball->pos.y - ai_paddle->h / 2;
-  if ( ai_paddle->pos.y > threshold && SIGNUM( ai_paddle->velocity.y ) > 0 ) {
+  if ( ai_paddle->pos.y > threshold && Stds_Signum( ai_paddle->velocity.y ) > 0 ) {
     ai_paddle->velocity.y *= -1;
-  } else if ( ai_paddle->pos.y < threshold && SIGNUM( ai_paddle->velocity.y ) < 0 ) {
+  } else if ( ai_paddle->pos.y < threshold && Stds_Signum( ai_paddle->velocity.y ) < 0 ) {
     ai_paddle->velocity.y *= -1;
   } else if ( ai_paddle->pos.y == threshold ) {
     Stds_MultiplyToVec2( &ai_paddle->velocity, 0.f );

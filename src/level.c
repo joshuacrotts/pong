@@ -126,16 +126,16 @@ handle_collisions( void ) {
     /* If they collided with p1, it's on the right side, otherwise
        it's the left. */
     if ( p1_collide ) {
-      Stds_PlaySounds( SND_P1_HIT, CH_ANY );
+      Stds_PlaySFX( SND_P1_HIT, CH_ANY );
       b->pos.x = p1->pos.x + p1->w;
     } else {
-      Stds_PlaySounds( SND_P2_HIT, CH_ANY );
+      Stds_PlaySFX( SND_P2_HIT, CH_ANY );
       b->pos.x = p2->pos.x;
       p2->flags &= 0;
     }
 
     b->velocity.x =
-        Stds_RandomFloat( MIN_X_VELOCITY, MAX_X_VELOCITY ) * -( SIGNUM( b->velocity.x ) );
+        Stds_RandomFloat( MIN_X_VELOCITY, MAX_X_VELOCITY ) * -( Stds_Signum( b->velocity.x ) );
     b->velocity.y =
         Stds_RandomFloatBounded( -MAX_Y_VELOCITY, -MIN_Y_VELOCITY, MIN_Y_VELOCITY, MAX_Y_VELOCITY );
   }
@@ -150,7 +150,7 @@ handle_collisions( void ) {
 
   if ( is_restart ) {
     respawn_ball( b );
-    Stds_PlaySounds( SND_SCORE, CH_ANY );
+    Stds_PlaySFX( SND_SCORE, CH_ANY );
     p2->flags &= 0;
   }
 }
