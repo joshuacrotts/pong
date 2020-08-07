@@ -15,7 +15,7 @@ init_ball( void ) {
   ball = malloc( sizeof( struct entity_t ) );
 
   if ( ball == NULL ) {
-
+    fprintf( stderr, "Error, could not allocate memory for ball entity_t struct.\n" );
     exit( EXIT_FAILURE );
   }
 
