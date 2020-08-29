@@ -4,7 +4,7 @@
   <img width="460" height="300" src="docs/pong.gif">
 </p>
 
-[![CodeFactor](https://www.codefactor.io/repository/github/joshuacrotts/Pong/badge)](https://www.codefactor.io/repository/github/joshuacrotts/Pong) ![GitHub contributors](https://img.shields.io/github/contributors/JoshuaCrotts/Pong) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/JoshuaCrotts/Pong) ![GitHub repo size](https://img.shields.io/github/repo-size/JoshuaCrotts/Pong)  ![](https://tokei.rs/b1/github/JoshuaCrotts/Pong) ![](https://tokei.rs/b1/github/JoshuaCrotts/Pong?category=files) [![GitHub issues open](https://img.shields.io/github/issues/JoshuaCrotts/Pong)]() 
+[![CodeFactor](https://www.codefactor.io/repository/github/joshuacrotts/Pong/badge)](https://www.codefactor.io/repository/github/joshuacrotts/Pong) ![GitHub contributors](https://img.shields.io/github/contributors/JoshuaCrotts/Pong) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/JoshuaCrotts/Pong) ![GitHub repo size](https://img.shields.io/github/repo-size/JoshuaCrotts/Pong)  ![](https://tokei.rs/b1/github/JoshuaCrotts/Pong?category=code) ![](https://tokei.rs/b1/github/JoshuaCrotts/Pong?category=files) [![GitHub issues open](https://img.shields.io/github/issues/JoshuaCrotts/Pong)]() 
 [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/JoshuaCrotts/Pong)]()
 
 Yep, this is yet another Pong game. The only difference with this clone is that this one has sound effects, and a CPU to play against! You can play with a friend, or play against the AI. I've never actually written a Pong game before, so I figured I would use my C-Standards library to do so.
